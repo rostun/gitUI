@@ -1,0 +1,13 @@
+@import 'common';
+
+header, footer {
+	background-color: $blue;
+	text-align: center;
+}
+
+footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
