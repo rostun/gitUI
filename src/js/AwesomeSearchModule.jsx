@@ -25,7 +25,7 @@ class AwesomeSearchModule extends Component {
       };
 
       const _Http = new XMLHttpRequest();
-      const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&per_page=10&sort=stars`;
+      const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&page=1&per_page=10&sort=stars`;
       const _url = `https://api.github.com/search/repositories?${_params}`;
       _Http.open("GET", _url, true); //true for asynchronous
       _Http.onreadystatechange = () => {
@@ -37,12 +37,13 @@ class AwesomeSearchModule extends Component {
       _Http.send(null);
    }
 
-   _testFork(params) {
+   _testForked(params) {
       return `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}+fork:only&per_page=10&sort=stars`;
    }
    
    _processSearchResults(res) {
       let _searchResults = [];
+
       if(res.items && res.items.length > 0) {
          _searchResults = res.items.map((item, idx) => {
             const _item = {
@@ -56,7 +57,6 @@ class AwesomeSearchModule extends Component {
             return <RepositoryItem key={`repo-${idx}`} repository={_item} />
          });
       }
-      console.log(_searchResults);
 
       this.setState({
          searchResults: _searchResults
@@ -108,6 +108,8 @@ class AwesomeSearchModule extends Component {
    }
 
    render() {
+      let _results = this.state.searchResults.length === 0 ? 'No Results' : this.state.searchResults;
+
       return (
          <div className="AwesomeSearchModule">
             <h1 className="headerRow">Even Financial GitHub Repository Search</h1>
@@ -118,7 +120,7 @@ class AwesomeSearchModule extends Component {
                </button>
             </div>
             <div className="resultRow">
-               {this.state.searchResults}
+               {_results}
             </div>
          </div>
       );
