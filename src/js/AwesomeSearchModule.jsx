@@ -11,7 +11,7 @@ class AwesomeSearchModule extends Component {
          stars: '',
          license: 'mit',
          fork: false,
-         searchResults: null
+         searchResults: []
       };
    }
 
@@ -24,21 +24,45 @@ class AwesomeSearchModule extends Component {
          q: this.state.q, //"tetris language",
          license: this.state.license, //'gpl',
          stars: this.state.stars, //"stars",
-         fork: this.state.fork
+         fork: this.state.fork === true ? 'fork:true' : ''
       };
 
       const _Http = new XMLHttpRequest();
-      const _params = `q=${params.q}&license=${params.license}&stars=${params.stars}&fork=${params.fork}`;
+      const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&per_page=10&sort=stars`;
       const _url = `https://api.github.com/search/repositories?${_params}`;
       _Http.open("GET", _url, true); //true for asynchronous
       _Http.onreadystatechange = () => {
          if (_Http.readyState == 4 && _Http.status == 200) {
-            this.setState({
-               searchResults: _Http.responseText
-            });
+            const _res = JSON.parse(_Http.responseText);
+            this._processSearchResults(_res);
          }
       };
       _Http.send(null);
+   }
+
+   _testFork(params) {
+      return `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}+fork:only&per_page=10&sort=stars`;
+   }
+   
+   _processSearchResults(res) {
+      let _searchResults = [];
+      if(res.items && res.items.length > 0) {
+         res.items.forEach((item) => {
+            _searchResults.push({
+               repoName: item.full_name,
+               repoUrl: item.html_url,
+               forked: item.fork,
+               description: item.description,
+               stars: item.stargazers_count,
+               license: item.hasOwnProperty('license') ? item.license.name : null
+            });
+         });
+      }
+      console.log(_searchResults);
+
+      this.setState({
+         searchResults: _searchResults
+      });
    }
 
    _updateTextInputValue(e) {
@@ -95,7 +119,6 @@ class AwesomeSearchModule extends Component {
                   SEARCH
                </button>
             </div>
-            {this.state.searchResults}
          </div>
       );
    }
