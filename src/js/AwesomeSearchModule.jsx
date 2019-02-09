@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import "../sass/AwesomeSearchModule.scss";
+import RepositoryItem from "../js/RepositoryItem";
 
 class AwesomeSearchModule extends Component {
    constructor(props) {
@@ -14,10 +15,6 @@ class AwesomeSearchModule extends Component {
          searchResults: []
       };
    }
-
-   componentDidMount() {}
-
-   componentDidUpdate(prevProps) {}
 
    _searchGit() {  
       const params = {
@@ -47,15 +44,16 @@ class AwesomeSearchModule extends Component {
    _processSearchResults(res) {
       let _searchResults = [];
       if(res.items && res.items.length > 0) {
-         res.items.forEach((item) => {
-            _searchResults.push({
+         _searchResults = res.items.map((item, idx) => {
+            const _item = {
                repoName: item.full_name,
                repoUrl: item.html_url,
                forked: item.fork,
                description: item.description,
                stars: item.stargazers_count,
                license: item.hasOwnProperty('license') ? item.license.name : null
-            });
+            };
+            return <RepositoryItem key={`repo-${idx}`} repository={_item} />
          });
       }
       console.log(_searchResults);
@@ -118,6 +116,9 @@ class AwesomeSearchModule extends Component {
                <button type="button" onClick={this._searchGit.bind(this)}>
                   SEARCH
                </button>
+            </div>
+            <div className="resultRow">
+               {this.state.searchResults}
             </div>
          </div>
       );
