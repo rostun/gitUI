@@ -1,2 +1,9 @@
+@import 'common';
+
 .AwesomeSearchModule {
+	display: flex;
+	button {
+		background-color: $blue;
+		margin: auto; 
+	}
 }

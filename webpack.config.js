@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
    entry: "./src/index",
@@ -15,11 +15,23 @@ module.exports = {
          },
          {
             test: /\.(css|scss)$/,
-				use: [
-					"style-loader", 	//takes css and inserts it into the page
-               "css-loader", 		//translates css into commonJS
+            use: [
+               "style-loader", //takes css and inserts it into the page
+               "css-loader", //translates css into commonJS
                "sass-loader"
-				]
+            ]
+         },
+         {
+            test: /\.(png|jp(e*)g|svg)$/,
+            use: [
+               {
+                  loader: "url-loader",
+                  options: {
+                     limit: 8000, // Convert images < 8kb to base64 strings
+                     name: "images/[hash]-[name].[ext]"
+                  }
+               }
+            ]
          }
       ]
    },
@@ -37,7 +49,8 @@ module.exports = {
    },
    plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new HtmlWebpackPlugin({   
-         favicon: './src/images/favicon.ico'})
-      ]
+      new HtmlWebpackPlugin({
+         favicon: "./src/favicon.ico"
+      })
+   ]
 };
