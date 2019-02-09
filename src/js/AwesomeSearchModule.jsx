@@ -39,23 +39,42 @@ class AwesomeSearchModule extends Component {
          if (_Http.readyState == 4 && _Http.status == 200) {
             this.setState({
                searchResults: _Http.responseText
-            })
+            });
          }
       };
       _Http.send(null);
    }
 
    _renderForm() {
-
+      return (
+         <form className="searchForm">
+            <label htmlFor="textInput">Text</label>
+            <input type="text" id="textInput" />
+            <label htmlFor="starInput">Stars</label>
+            <input type="text" id="starInput" />
+            <label htmlFor="selectLicense">License</label>
+            <select id="selectLicense">
+               <option>MIT</option>
+               <option>ISC</option>
+               <option>Apache</option>
+               <option>GPL</option>
+            </select>            
+            <input type="checkbox" id="forkedFlag" />
+            <label htmlFor="forkedFlag">Include Forked</label>
+         </form>
+      );
    }
-   
+
    render() {
       return (
          <div className="AwesomeSearchModule">
-            {this._renderForm()}
-            <button type="button" onClick={this._searchGit.bind(this)}>
-               SEARCH
-            </button>
+            <h1 className="headerRow">Even Financial GitHub Repository Search</h1>
+            <div className="searchRow">{this._renderForm()}</div>
+            <div className="submitRow">
+               <button type="button" onClick={this._searchGit.bind(this)}>
+                  SEARCH
+               </button>
+            </div>
             {this.state.searchResults}
          </div>
       );

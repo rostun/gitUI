@@ -1,9 +1,25 @@
-@import 'common';
+@import "common";
 
 .AwesomeSearchModule {
-	display: flex;
-	button {
-		background-color: $blue;
-		margin: auto; 
-	}
-}
+   display: flex;
+   flex-wrap: wrap;
+   .headerRow {
+		text-align: center;
+      flex: 0 0 100%;
+	} //headerRow
+	.searchRow {
+		display: flex;
+		flex: 0 0 100%;
+		.searchForm {
+			margin: auto;
+		}
+	} //searchRow
+	.submitRow {
+		display: flex;
+		flex: 0 0 100%;
+		button {			
+			background-color: $blue;
+			margin: auto;
+		}
+	} //submitRow
+} //AwesomeSearchModule
