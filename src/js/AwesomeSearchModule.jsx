@@ -2,30 +2,33 @@ import React, { Component } from "react";
 
 import "../sass/AwesomeSearchModule.scss";
 import RepositoryItem from "../js/RepositoryItem";
+import InputModule from "../js/InputModule";
 
 class AwesomeSearchModule extends Component {
    constructor(props) {
       super(props);
 
       this.state = {
-         q: '',
-         stars: '',
-         license: 'mit',
+         q: "",
+         stars: "",
+         license: "mit",
          fork: false,
          searchResults: []
       };
    }
 
-   _searchGit() {  
+   _searchGit() {
       const params = {
          q: this.state.q, //"tetris language",
          license: this.state.license, //'gpl',
          stars: this.state.stars, //"stars",
-         fork: this.state.fork === true ? 'fork:true' : ''
+         fork: this.state.fork === true ? "fork:true" : ""
       };
 
       const _Http = new XMLHttpRequest();
-      const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&page=1&per_page=10&sort=stars`;
+      const _params = `q=${params.q}+stars:${params.stars}+license:${
+         params.license
+      }+${params.fork}&page=1&per_page=10&sort=stars`;
       const _url = `https://api.github.com/search/repositories?${_params}`;
       _Http.open("GET", _url, true); //true for asynchronous
       _Http.onreadystatechange = () => {
@@ -38,13 +41,15 @@ class AwesomeSearchModule extends Component {
    }
 
    _testForked(params) {
-      return `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}+fork:only&per_page=10&sort=stars`;
+      return `q=${params.q}+stars:${params.stars}+license:${params.license}+${
+         params.fork
+      }+fork:only&per_page=10&sort=stars`;
    }
-   
+
    _processSearchResults(res) {
       let _searchResults = [];
 
-      if(res.items && res.items.length > 0) {
+      if (res.items && res.items.length > 0) {
          _searchResults = res.items.map((item, idx) => {
             const _item = {
                repoName: item.full_name,
@@ -52,9 +57,11 @@ class AwesomeSearchModule extends Component {
                forked: item.fork,
                description: item.description,
                stars: item.stargazers_count,
-               license: item.hasOwnProperty('license') ? item.license.name : null
+               license: item.hasOwnProperty("license")
+                  ? item.license.name
+                  : null
             };
-            return <RepositoryItem key={`repo-${idx}`} repository={_item} />
+            return <RepositoryItem key={`repo-${idx}`} repository={_item} />;
          });
       }
 
@@ -63,64 +70,99 @@ class AwesomeSearchModule extends Component {
       });
    }
 
-   _updateTextInputValue(e) {
+   _updateTextInputValue(value) {
       this.setState({
-         q: e.target.value 
-      });
-   }
-   
-   _updateStarInputValue(e) {
-      this.setState({
-         stars: e.target.value
+         q: value
       });
    }
 
-   _updateLicenseValue(e) {
+   _updateStarInputValue(value) {
       this.setState({
-         license: e.target.value
+         stars: value
       });
    }
 
-   _updateForkValue(e) {
+   _updateLicenseValue(value) {
       this.setState({
-         fork: e.target.checked
+         license: value
       });
+   }
+
+   _updateForkValue(value) {
+      this.setState({
+         fork: value
+      });
+   }
+
+   _renderResults() {
+
    }
 
    _renderForm() {
       return (
          <form className="searchForm">
-            <label htmlFor="textInput">Text</label>
-            <input type="text" id="textInput" value={this.state.q} onChange={this._updateTextInputValue.bind(this)}/>
-            <label htmlFor="starInput">Stars</label>
-            <input type="text" id="starInput" placeholder="0..100, 200, >1000" value={this.state.stars} onChange={this._updateStarInputValue.bind(this)}/>
-            <label htmlFor="selectLicense">License</label>
-            <select id="selectLicense" value={this.state.license} onChange={this._updateLicenseValue.bind(this)}>
-               <option value="mit">MIT</option>
-               <option value="isc">ISC</option>
-               <option value="apache-2.0">Apache license 2.0</option>
-               <option value="gpl">GNU General Public License family</option>
-            </select>            
-            <input type="checkbox" id="forkedFlag" onChange={this._updateForkValue.bind(this)} />
-            <label htmlFor="forkedFlag">Include Forked</label>
+            <InputModule
+               name="searchRepo"
+               idName="textInput"
+               inputType="text"
+               onChange={this._updateTextInputValue.bind(this)}
+               labelContent="Text"
+            />
+            <InputModule
+               name="searchStars"
+               idName="starInput"
+               inputType="text"
+               onChange={this._updateStarInputValue.bind(this)}
+               labelContent="Stars"
+               inputPlaceholder="0..100, 200, >1000"
+            />
+            <InputModule
+               name="searchLicense"
+               idName="selectLicense"
+               inputType="select"
+               onChange={this._updateLicenseValue.bind(this)}
+               labelContent="License"
+               inputContent={[
+                  { value: "mit", label: "MIT" },
+                  { value: "isc", label: "ISC" },
+                  { value: "apache-2.0", label: "Apache license 2.0" },
+                  { value: "gpl", label: "GNU General Public License Family" }
+               ]}
+            />
+            <InputModule
+               name="searchForked"
+               idName="forkedFlag"
+               inputType="checkbox"
+               onChange={this._updateForkValue.bind(this)}
+               labelContent="Include Forked"
+               labelPosition="after"
+            />
          </form>
       );
    }
 
    render() {
-      let _results = this.state.searchResults.length === 0 ? 'No Results' : this.state.searchResults;
+      let _results = this._renderResults()
+         this.state.searchResults.length === 0 ? "" : this.state.searchResults;
 
       return (
          <div className="AwesomeSearchModule">
-            <h1 className="headerRow">Even Financial GitHub Repository Search</h1>
+            <h1 className="headerRow">
+               Even Financial GitHub Repository Search
+            </h1>
             <div className="searchRow">{this._renderForm()}</div>
             <div className="submitRow">
                <button type="button" onClick={this._searchGit.bind(this)}>
                   SEARCH
                </button>
             </div>
-            <div className="resultRow">
-               {_results}
+            <hr className="divider" />
+            <div className="resultsRow">
+               <h3 className="resultsHeaderRow">
+                  Please enter query and click SEARCH button above, results
+                  appear here.
+               </h3>
+               <div className="results">{_results}</div>
             </div>
          </div>
       );

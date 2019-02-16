@@ -1,8 +1,6 @@
-# gitUI
+# gitUI - Github Repository Search
 
-# Github Repository Search
-
-TO RUN UI
-	npm run build 
-	npm start
-	Navigate to localhost:8888
+TO RUN UI LOCALLY (assuming node + npm are installed)  
+   npm run build  
+   npm start  
+   Navigate to localhost:8888  

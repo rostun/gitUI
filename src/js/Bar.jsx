@@ -11,20 +11,20 @@ class Bar extends Component {
       this.state = {};
    }
 
-	_getBarContent(type) {
-		if(type === 'top') {
-			return (
-				<div className="logo">
-					<img src={logo} alt="even-logo" />
-				</div>
-			);
-		}
-		return (
-			<div className="coypright">
-				{'© 2017 Even Financial, Inc. - CONFIDENTIAL'}
-			</div>
-		);
-	}
+   _getBarContent(type) {
+      if (type === "top") {
+         return (
+            <div className="logo">
+               <img src={logo} alt="even-logo" />
+            </div>
+         );
+      }
+      return (
+         <div className="coypright">
+            {"© 2017 Even Financial, Inc. - CONFIDENTIAL"}
+         </div>
+      );
+   }
 
    render() {
       const CustomTag = this.props.type === "top" ? "header" : "footer";
@@ -38,7 +38,7 @@ class Bar extends Component {
 }
 
 Bar.propTypes = {
-   type: PropTypes.PropTypes.oneOf(["top", "bottom"]).isRequired
+   type: PropTypes.oneOf(["top", "bottom"]).isRequired
 };
 
 export default Bar;
