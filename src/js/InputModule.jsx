@@ -104,7 +104,7 @@ InputModule.propTypes = {
    inputType: PropTypes.oneOf(["select", "text", "checkbox"]).isRequired,
    onChange: PropTypes.func.isRequired,
 
-   labelContent: PropTypes.string,
+   labelContent: PropTypes.node,
    labelPosition: PropTypes.oneOf(["before", "after"]),
    inputContent: PropTypes.arrayOf(
       PropTypes.shape({

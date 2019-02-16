@@ -11,6 +11,7 @@ class AwesomeSearchModule extends Component {
       this.state = {
          q: "",
          stars: "",
+         starsError: "",
          license: "mit",
          fork: false,
          isLoading: false,
@@ -100,6 +101,48 @@ class AwesomeSearchModule extends Component {
       });
    }
 
+   _isNumber(numberString) {
+      const _numString = numberString * 1;
+      return !isNaN(_numString);
+   }
+
+   _isWholeNumber(numberString) {
+      const reg = new RegExp('^[0-9]+$');
+      return reg.test(numberString);
+   }
+
+   _testStars(value) {
+      let _range = "..";
+      let _lessThan = "<";
+      let _moreThan = ">";
+
+      let _expression = [];
+
+      //if it contains a character of interest, split the string and test the numbers
+      if (value.indexOf(_range) !== -1) {
+         _expression = value.split(_range);
+         if (_expression.length === 2 && this._isWholeNumber(_expression[0]) && this._isWholeNumber(_expression[1])) {
+            return true;
+         }
+         return false;
+      }
+      if(value.indexOf(_lessThan) !== -1){
+         _expression = value.split(_lessThan);
+         if (_expression.length === 2 && this._isWholeNumnber(_expression[1])) {
+            return true;
+         }
+         return false;
+      }
+      if(value.indexOf(_moreThan) !== -1) {
+         _expression = value.split(_moreThan);
+         if (_expression.length === 2 && this._isWholeNumber(_expression[1])) {
+            return true;
+         }
+         return false;
+      }
+      return false;
+   }
+
    _updateTextInputValue(value) {
       this.setState({
          q: value
@@ -107,8 +150,11 @@ class AwesomeSearchModule extends Component {
    }
 
    _updateStarInputValue(value) {
+      let _starsError = this._testStars(value) === true || value === "" ? "" : "0..100, 200, >1000";
+
       this.setState({
-         stars: value
+         stars: value,
+         starsError: _starsError
       });
    }
 
@@ -132,14 +178,14 @@ class AwesomeSearchModule extends Component {
                idName="textInput"
                inputType="text"
                onChange={this._updateTextInputValue.bind(this)}
-               labelContent="Text"
+               labelContent={<div className="textLabel">Text</div>}
             />
             <InputModule
                name="searchStars"
                idName="starInput"
                inputType="text"
                onChange={this._updateStarInputValue.bind(this)}
-               labelContent="Stars"
+               labelContent={<div className="starsLabel">Stars <div className="starsError">{this.state.starsError}</div></div>}
                inputPlaceholder="0..100, 200, >1000"
             />
             <InputModule
@@ -147,7 +193,7 @@ class AwesomeSearchModule extends Component {
                idName="selectLicense"
                inputType="select"
                onChange={this._updateLicenseValue.bind(this)}
-               labelContent="License"
+               labelContent={<div className="licenseLabel">License</div>}
                inputContent={[
                   { value: "mit", label: "MIT" },
                   { value: "isc", label: "ISC" },
@@ -160,7 +206,7 @@ class AwesomeSearchModule extends Component {
                idName="forkedFlag"
                inputType="checkbox"
                onChange={this._updateForkValue.bind(this)}
-               labelContent="Include Forked"
+               labelContent={<div className="licenseLabel">Include Forked</div>}
                labelPosition="after"
             />
          </form>
