@@ -91,7 +91,7 @@ class InputModule extends Component {
          : _searchModule.unshift(_renderLabel);
 
       return (
-         <div className={`inputModule ${this.props.name}`}>
+         <div className={`InputModule ${this.props.name}`}>
             {_searchModule}
          </div>
       );

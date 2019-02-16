@@ -48,10 +48,15 @@
 	.resultsRow {
 		display: flex;
 		flex-basis: 100%;
+		flex-wrap: wrap;
+		justify-content: center;
+		.resultsHeaderRow {
+			text-align: center;
+			flex-basis: 100%;
+		}
+		.results {
+			flex-basis: 50%;
+		}
 	}
 
-	.resultsHeaderRow {
-		text-align: center;
-		flex-basis: 100%;
-	}
 } //AwesomeSearchModule

@@ -4,6 +4,8 @@ import "../sass/AwesomeSearchModule.scss";
 import RepositoryItem from "../js/RepositoryItem";
 import InputModule from "../js/InputModule";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 class AwesomeSearchModule extends Component {
    constructor(props) {
       super(props);
@@ -13,11 +15,16 @@ class AwesomeSearchModule extends Component {
          stars: "",
          license: "mit",
          fork: false,
+         isLoading: false,
          searchResults: []
       };
    }
 
-   _searchGit() {
+   async _searchGit() {
+      this.setState({
+         isLoading: true
+      });
+
       const params = {
          q: this.state.q, //"tetris language",
          license: this.state.license, //'gpl',
@@ -25,32 +32,48 @@ class AwesomeSearchModule extends Component {
          fork: this.state.fork === true ? "fork:true" : ""
       };
 
-      const _Http = new XMLHttpRequest();
-      const _params = `q=${params.q}+stars:${params.stars}+license:${
-         params.license
-      }+${params.fork}&page=1&per_page=10&sort=stars`;
+      //const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&page=1&per_page=10&sort=stars`;
+      const _params = this._testForked(params);
+
       const _url = `https://api.github.com/search/repositories?${_params}`;
-      _Http.open("GET", _url, true); //true for asynchronous
-      _Http.onreadystatechange = () => {
-         if (_Http.readyState == 4 && _Http.status == 200) {
-            const _res = JSON.parse(_Http.responseText);
-            this._processSearchResults(_res);
-         }
-      };
-      _Http.send(null);
+
+      try {
+         let result = await this.makeRequest("GET", _url);
+         this._processSearchResults(result);
+      } catch (error) {
+         this._processError(error);
+      }
+   }
+
+   async makeRequest(method, url) {
+      var xhr = new XMLHttpRequest();
+      return new Promise((resolve, reject) => {
+         xhr.onreadystatechange = () => {
+            if (xhr.readyState == 4 && xhr.status >= 300) {
+               reject("Error, status code = " + xhr.status);
+            }
+            if (xhr.readyState == 4 && xhr.status === 200) {
+               resolve(xhr.responseText);
+            }
+         };
+         xhr.open(method, url, true);
+         xhr.send();
+      });
    }
 
    _testForked(params) {
       return `q=${params.q}+stars:${params.stars}+license:${params.license}+${
          params.fork
-      }+fork:only&per_page=10&sort=stars`;
+      }+fork:only&per_page=100&sort=stars`;
    }
 
    _processSearchResults(res) {
+      let _repos = JSON.parse(res);
+
       let _searchResults = [];
 
-      if (res.items && res.items.length > 0) {
-         _searchResults = res.items.map((item, idx) => {
+      if (_repos.items && _repos.items.length > 0) {
+         _searchResults = _repos.items.map((item, idx) => {
             const _item = {
                repoName: item.full_name,
                repoUrl: item.html_url,
@@ -66,7 +89,16 @@ class AwesomeSearchModule extends Component {
       }
 
       this.setState({
-         searchResults: _searchResults
+         searchResults: _searchResults,
+         isLoading: false
+      });
+   }
+
+   _processError(err) {
+      console.log(err);
+      this.setState({
+         searchResults: [],
+         isLoading: false
       });
    }
 
@@ -92,10 +124,6 @@ class AwesomeSearchModule extends Component {
       this.setState({
          fork: value
       });
-   }
-
-   _renderResults() {
-
    }
 
    _renderForm() {
@@ -142,8 +170,19 @@ class AwesomeSearchModule extends Component {
    }
 
    render() {
-      let _results = this._renderResults()
-         this.state.searchResults.length === 0 ? "" : this.state.searchResults;
+      let _searchResults = this.state.searchResults;
+
+      let _resultHeader = !_searchResults || _searchResults.length === 0 ? 'Please enter query and click SEARCH button above, results appear here.' : 'SEARCH results: ';
+      let _resultSection = this.state.isLoading === true ? <CircularProgress/> : _searchResults;
+
+      let _resultsRow = (
+         <div className="resultsRow">
+            <h3 className="resultsHeaderRow">
+              {_resultHeader}
+            </h3>
+            <div className="results">{_resultSection}</div>
+         </div>
+      );
 
       return (
          <div className="AwesomeSearchModule">
@@ -157,13 +196,7 @@ class AwesomeSearchModule extends Component {
                </button>
             </div>
             <hr className="divider" />
-            <div className="resultsRow">
-               <h3 className="resultsHeaderRow">
-                  Please enter query and click SEARCH button above, results
-                  appear here.
-               </h3>
-               <div className="results">{_results}</div>
-            </div>
+            {_resultsRow}
          </div>
       );
    }

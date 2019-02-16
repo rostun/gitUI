@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-   entry: "./src/index",
+   entry: ["babel-polyfill", "./src/index"],
    mode: "development",
    module: {
       rules: [
