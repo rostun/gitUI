@@ -4,8 +4,6 @@ import "../sass/AwesomeSearchModule.scss";
 import RepositoryItem from "../js/RepositoryItem";
 import InputModule from "../js/InputModule";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-
 class AwesomeSearchModule extends Component {
    constructor(props) {
       super(props);
@@ -16,7 +14,7 @@ class AwesomeSearchModule extends Component {
          license: "mit",
          fork: false,
          isLoading: false,
-         searchResults: []
+         searchResults: null
       };
    }
 
@@ -170,16 +168,22 @@ class AwesomeSearchModule extends Component {
    }
 
    render() {
-      let _searchResults = this.state.searchResults;
+      const _searchResults = this.state.searchResults;
 
-      let _resultHeader = !_searchResults || _searchResults.length === 0 ? 'Please enter query and click SEARCH button above, results appear here.' : 'SEARCH results: ';
-      let _resultSection = this.state.isLoading === true ? <CircularProgress/> : _searchResults;
+      const _resultHeader =
+         _searchResults === null
+            ? "Please enter query and click SEARCH button above, results appear here."
+            : "SEARCH results: ";
+      const _resultSection =
+         this.state.isLoading === true ? (
+            <div className="loader" />
+         ) : (
+            _searchResults
+         );
 
-      let _resultsRow = (
+      const _resultsRow = (
          <div className="resultsRow">
-            <h3 className="resultsHeaderRow">
-              {_resultHeader}
-            </h3>
+            <h3 className="resultsHeaderRow">{_resultHeader}</h3>
             <div className="results">{_resultSection}</div>
          </div>
       );

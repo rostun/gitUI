@@ -4,59 +4,74 @@
    display: flex;
    flex-wrap: wrap;
    .headerRow {
-		text-align: center;
-		flex-basis: 100%;
-		
-	} //headerRow
-	.searchRow {
-		display: flex;
-		flex-basis: 100%;
-		justify-content: center;
-		padding: 20px;
-		.searchForm {
-			display: flex;
-			flex-wrap: wrap;
-			.searchRepo {
-				flex-basis: 50%;
-			}
-			.searchStars {
-				flex-basis: 50%;
-			}
-			.searchLicense {
-				flex-basis: 50%;
-			}
-			.searchForked {
-				flex-basis: 50%;
-			}
-		}
-	} //searchRow
-	.submitRow {
-		display: flex;
-		flex-basis: 100%;
-		justify-content: center;
-		padding: 20px;
+      text-align: center;
+      flex-basis: 100%;
+   } //headerRow
+   .searchRow {
+      display: flex;
+      flex-basis: 100%;
+      justify-content: center;
+      padding: 20px;
+      .searchForm {
+         display: flex;
+         flex-wrap: wrap;
+         .searchRepo {
+            flex-basis: 50%;
+         }
+         .searchStars {
+            flex-basis: 50%;
+         }
+         .searchLicense {
+            flex-basis: 50%;
+         }
+         .searchForked {
+            flex-basis: 50%;
+         }
+      }
+   } //searchRow
+   .submitRow {
+      display: flex;
+      flex-basis: 100%;
+      justify-content: center;
+      padding: 20px;
 
-		button {			
-			background-color: $blue;
-		}
-	} //submitRow
-	.divider {
-		display: flex;
-		flex-basis: 50%;
-	} //divider
-	
-	.resultsRow {
-		display: flex;
-		flex-basis: 100%;
-		flex-wrap: wrap;
-		justify-content: center;
-		.resultsHeaderRow {
-			text-align: center;
-			flex-basis: 100%;
-		}
-		.results {
-			flex-basis: 50%;
-		}
-	}
+      button {
+         background-color: $blue;
+      }
+   } //submitRow
+   .divider {
+      display: flex;
+      flex-basis: 50%;
+   } //divider
 
+   .resultsRow {
+      display: flex;
+      flex-basis: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      .resultsHeaderRow {
+         text-align: center;
+         flex-basis: 100%;
+      }
+      .results {
+         flex-basis: 50%;
+      }
+      .loader {
+         border: 16px solid $light-grey;
+         border-top: 16px solid $blue;
+         border-radius: 50%;
+         width: 120px;
+         height: 120px;
+         animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+         0% {
+            transform: rotate(0deg);
+         }
+         100% {
+            transform: rotate(360deg);
+         }
+      }
+   }
 } //AwesomeSearchModule
