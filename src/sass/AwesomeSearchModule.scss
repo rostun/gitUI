@@ -4,6 +4,7 @@
    display: flex;
 	flex-wrap: wrap;
 	color: $darkGray;
+	padding-bottom: 70px;
    .headerRow {
       text-align: center;
 		flex-basis: 100%;
@@ -68,9 +69,9 @@
    } //divider
 
    .resultsRow {
-      display: flex;
-      flex-basis: 100%;
-      flex-wrap: wrap;
+		display: flex;
+		flex-basis: 100%;
+		flex-wrap: wrap;
 		justify-content: center;
 		padding-top: 71px;
       .resultsHeaderRow {
@@ -78,9 +79,12 @@
 			flex-basis: 100%;
       }
       .results {
+			flex-basis: 67%;
+			flex-wrap: wrap;
 			display: flex;
-			justify-content: center;
-			padding-top: 25px;
+			padding-top: 47px;
+			padding-bottom: 47px;
+			justify-content:center;
 			.loader {
 				border: 16px solid $light-grey;
 				border-top: 16px solid $blue;

@@ -23,14 +23,39 @@ class RepositoryItem extends Component {
    }
 
    render() {
-      return <div className="RepositoryItem">
-         {this.state.repository.repoName}
-         {this.state.repository.repoUrl}
-         {this.state.repository.forked}
-         {this.state.repository.description}
-         {this.state.repository.stars}
-         {this.state.repository.license}
-      </div>;
+      const _repo = this.state.repository;
+
+      if (!_repo || _repo.length === 0) {
+         return null;
+      }
+
+      const _forked =
+         _repo.forked === true ? (
+            <label className="repoForked">forked</label>
+         ) : null;
+
+      return (
+         <div className="RepositoryItem">
+            <div className="repoBasicDetails">
+               <div className="repoDetails">
+                  <a className="repoLink" href={_repo.repoUrl}>
+                     {_repo.repoName}
+                  </a>
+                  {_forked}
+               </div>
+               <div className="repoDescription">{_repo.description}</div>
+               
+            </div>
+            <div className="repoStars">
+               Stars:
+               <div className="repoStarsValue"> {_repo.stars}</div>
+            </div>
+            <div className="repoLicense">
+               License:
+               <div className="repoLicenseValue"> {_repo.license}</div>
+            </div>
+         </div>
+      );
    }
 }
 
