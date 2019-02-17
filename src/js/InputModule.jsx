@@ -89,7 +89,7 @@ class InputModule extends Component {
       this.props.labelPosition === "after"
          ? _searchModule.push(_renderLabel)
          : _searchModule.unshift(_renderLabel);
-
+         
       return (
          <div className={`InputModule ${this.props.name}`}>
             {_searchModule}

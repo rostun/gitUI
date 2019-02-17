@@ -2,53 +2,71 @@
 
 .AwesomeSearchModule {
    display: flex;
-   flex-wrap: wrap;
+	flex-wrap: wrap;
+	color: $darkGray;
    .headerRow {
       text-align: center;
-      flex-basis: 100%;
+		flex-basis: 100%;
+		font-size: 40px;
+		padding-top: 81px;
+		padding-bottom: 82px;
    } //headerRow
    .searchRow {
       display: flex;
       flex-basis: 100%;
-      justify-content: center;
-      padding: 20px;
+		justify-content: center;
       .searchForm {
          display: flex;
-         flex-wrap: wrap;
-         .searchRepo {
-            flex-basis: 50%;
-         }
-         .searchStars {
-            flex-basis: 50%;
-         }
-         .searchLicense {
-            flex-basis: 50%;
-         }
+			flex-wrap: wrap;
+			flex-basis: 41.4%;
+			.searchRepo, .searchStars {
+				padding-top: 0px;
+			}
          .searchForked {
-            flex-basis: 50%;
-         }
+				font-size: 14px;
+				padding-top: 42px;
+				label {
+					margin-left: 70px;
+				}
+			}
+			.searchStars {
+				input, label {
+					margin-left: 70px;
+				}
+			}
+			.searchLicense {
+				padding-top: 18px;
+			}
       }
    } //searchRow
    .submitRow {
       display: flex;
       flex-basis: 100%;
       justify-content: center;
-      padding: 20px;
+		padding-top: 79px;
+		padding-bottom: 71px;
 
       button {
-         background-color: $blue;
+			background-color: $teal;
+			color: $white;
+			border: 0 none;
+			font-size: 10px;
+			padding: 15px 38px;
+			font-weight: bold;
+			border-radius: 4px;
       }
    } //submitRow
    .divider {
       display: flex;
-      flex-basis: 50%;
+		flex-basis: 66.8%;
    } //divider
 
    .resultsRow {
       display: flex;
       flex-basis: 100%;
       flex-wrap: wrap;
-      justify-content: center;
+		justify-content: center;
+		padding-top: 71px;
       .resultsHeaderRow {
          text-align: center;
          flex-basis: 100%;
@@ -64,7 +82,6 @@
          height: 120px;
          animation: spin 2s linear infinite;
       }
-
       @keyframes spin {
          0% {
             transform: rotate(0deg);

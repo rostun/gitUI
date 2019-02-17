@@ -206,7 +206,7 @@ class AwesomeSearchModule extends Component {
                idName="forkedFlag"
                inputType="checkbox"
                onChange={this._updateForkValue.bind(this)}
-               labelContent={<div className="licenseLabel">Include Forked</div>}
+               labelContent={<span className="forkedLabel">Include Forked</span>}
                labelPosition="after"
             />
          </form>
@@ -229,16 +229,16 @@ class AwesomeSearchModule extends Component {
 
       const _resultsRow = (
          <div className="resultsRow">
-            <h3 className="resultsHeaderRow">{_resultHeader}</h3>
+            <div className="resultsHeaderRow">{_resultHeader}</div>
             <div className="results">{_resultSection}</div>
          </div>
       );
 
       return (
          <div className="AwesomeSearchModule">
-            <h1 className="headerRow">
+            <div className="headerRow">
                Even Financial GitHub Repository Search
-            </h1>
+            </div>
             <div className="searchRow">{this._renderForm()}</div>
             <div className="submitRow">
                <button type="button" onClick={this._searchGit.bind(this)}>
