@@ -48,12 +48,20 @@
       color: $teal;
    }
 
+	input[type="text"]:disabled {
+		border: 1px solid $disabledGray;
+	}
+
+	select:disabled {
+		border: 1px solid $disabledGray;
+	}
+
    input[type="checkbox"]:disabled + label:before {
-      border-color: #aaa;
+      border: 1px solid $disabledGray;
    }
 
    input[type="checkbox"]:checked:disabled + label:before {
-      background-color: $gray;
-      border-color: $gray;
+		background-color: $light-grey;
+		color: $darkGray;
    }
 }

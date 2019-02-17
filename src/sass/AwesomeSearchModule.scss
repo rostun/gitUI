@@ -30,6 +30,9 @@
 				}
 			}
 			.searchStars {
+				.starsError {
+					color: red;
+				}
 				input, label {
 					margin-left: 70px;
 				}
@@ -54,7 +57,10 @@
 			padding: 15px 38px;
 			font-weight: bold;
 			border-radius: 4px;
-      }
+		}
+		button:disabled {
+			background-color: $gray;
+		}
    } //submitRow
    .divider {
       display: flex;

@@ -171,6 +171,8 @@ class AwesomeSearchModule extends Component {
    }
 
    _renderForm() {
+      const _disabled = this.state.isLoading === true ? true : false;
+
       return (
          <form className="searchForm">
             <InputModule
@@ -179,14 +181,16 @@ class AwesomeSearchModule extends Component {
                inputType="text"
                onChange={this._updateTextInputValue.bind(this)}
                labelContent={<div className="textLabel">Text</div>}
+               disabled={_disabled}
             />
             <InputModule
                name="searchStars"
                idName="starInput"
                inputType="text"
                onChange={this._updateStarInputValue.bind(this)}
-               labelContent={<div className="starsLabel">Stars <div className="starsError">{this.state.starsError}</div></div>}
+               labelContent={<div className="starsLabel">Stars <span className="starsError">{this.state.starsError}</span></div>}
                inputPlaceholder="0..100, 200, >1000"
+               disabled={_disabled}
             />
             <InputModule
                name="searchLicense"
@@ -200,6 +204,7 @@ class AwesomeSearchModule extends Component {
                   { value: "apache-2.0", label: "Apache license 2.0" },
                   { value: "gpl", label: "GNU General Public License Family" }
                ]}
+               disabled={_disabled}
             />
             <InputModule
                name="searchForked"
@@ -208,6 +213,7 @@ class AwesomeSearchModule extends Component {
                onChange={this._updateForkValue.bind(this)}
                labelContent={<span className="forkedLabel">Include Forked</span>}
                labelPosition="after"
+               disabled={_disabled}
             />
          </form>
       );
@@ -234,6 +240,8 @@ class AwesomeSearchModule extends Component {
          </div>
       );
 
+      const _disabled = this.state.starsError !== "" ? true : false;
+
       return (
          <div className="AwesomeSearchModule">
             <div className="headerRow">
@@ -241,7 +249,7 @@ class AwesomeSearchModule extends Component {
             </div>
             <div className="searchRow">{this._renderForm()}</div>
             <div className="submitRow">
-               <button type="button" onClick={this._searchGit.bind(this)}>
+               <button type="button" onClick={this._searchGit.bind(this)} disabled={_disabled}>
                   SEARCH
                </button>
             </div>

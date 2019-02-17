@@ -60,6 +60,7 @@ class InputModule extends Component {
             key={`${this.props.idName}-${this.props.name}-input`}
             {..._inputProps}
             onChange={this._onChange.bind(this)}
+            disabled={this.props.disabled}
          >
             {_content}
          </CustomTag>
@@ -89,7 +90,7 @@ class InputModule extends Component {
       this.props.labelPosition === "after"
          ? _searchModule.push(_renderLabel)
          : _searchModule.unshift(_renderLabel);
-         
+
       return (
          <div className={`InputModule ${this.props.name}`}>
             {_searchModule}
@@ -103,6 +104,7 @@ InputModule.propTypes = {
    idName: PropTypes.string.isRequired,
    inputType: PropTypes.oneOf(["select", "text", "checkbox"]).isRequired,
    onChange: PropTypes.func.isRequired,
+   disabled: PropTypes.bool.isRequired,
 
    labelContent: PropTypes.node,
    labelPosition: PropTypes.oneOf(["before", "after"]),
