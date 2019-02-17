@@ -3,10 +3,13 @@
 .InputModule {
    font-size: 10px;
    flex-basis: 50%;
-
-	input, select {
-		border: 1px solid $darkGray;
-	}
+   display: flex;
+   flex-direction: column;
+   input,
+   select {
+      border: 1px solid $darkGray;
+      @include boxSizing(content-box);
+   }
 
    input[type="text"] {
       width: 74.5%;
@@ -14,9 +17,9 @@
       padding: 15px;
    }
    select {
-      width: 82.5%;
+      width: 74.5%;
       padding: 15px 13px 13px 15px;
-		font-size: 15px;
+      font-size: 15px;
    }
    .before {
       display: block;
@@ -28,40 +31,40 @@
    }
 
    input[type="checkbox"] + label:before {
-		content: "\2714";
-		border: 1px solid #4b5050;
-		display: inline-block;
-		width: 1.2em;
-		height: 1.1em;
-		font-size: 20px;
-		padding-left: 0.2em;
-		padding-bottom: 0.3em;
-		margin-right: 0.5em;
-		vertical-align: middle;
-		color: transparent;
-	}
-	input[type="checkbox"] + label:after {
-		margin-left:20px;
-	}
+      content: "\2714";
+      border: 1px solid #4b5050;
+      display: inline-block;
+      width: 1.2em;
+      height: 1.1em;
+      font-size: 20px;
+      padding-left: 0.2em;
+      padding-bottom: 0.3em;
+      margin-right: 0.5em;
+      vertical-align: middle;
+      color: transparent;
+   }
+   input[type="checkbox"] + label:after {
+      margin-left: 20px;
+   }
 
    input[type="checkbox"]:checked + label:before {
       color: $teal;
    }
 
-	input[type="text"]:disabled {
-		border: 1px solid $disabledGray;
-	}
+   input[type="text"]:disabled {
+      border: 1px solid $disabledGray;
+   }
 
-	select:disabled {
-		border: 1px solid $disabledGray;
-	}
+   select:disabled {
+      border: 1px solid $disabledGray;
+   }
 
    input[type="checkbox"]:disabled + label:before {
       border: 1px solid $disabledGray;
    }
 
    input[type="checkbox"]:checked:disabled + label:before {
-		background-color: $light-grey;
-		color: $darkGray;
+      background-color: $light-grey;
+      color: $darkGray;
    }
-}
+} //InputMOdule

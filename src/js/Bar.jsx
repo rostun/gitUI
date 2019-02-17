@@ -20,7 +20,7 @@ class Bar extends Component {
          );
       }
       return (
-         <div className="coypright">
+         <div className="copyright">
             {"© 2017 Even Financial, Inc. - CONFIDENTIAL"}
          </div>
       );

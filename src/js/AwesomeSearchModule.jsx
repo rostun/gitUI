@@ -31,8 +31,10 @@ class AwesomeSearchModule extends Component {
          fork: this.state.fork === true ? "fork:true" : ""
       };
 
-      //const _params = `q=${params.q}+stars:${params.stars}+license:${params.license}+${params.fork}&page=1&per_page=10&sort=stars`;
-      const _params = this._testForked(params);
+      const _params = `q=${params.q}+stars:${params.stars}+license:${
+         params.license
+      }+${params.fork}&page=1&per_page=25&sort=stars`;
+      //const _params = this._testForked(params);
 
       const _url = `https://api.github.com/search/repositories?${_params}`;
 
@@ -107,7 +109,7 @@ class AwesomeSearchModule extends Component {
    }
 
    _isWholeNumber(numberString) {
-      const reg = new RegExp('^[0-9]+$');
+      const reg = new RegExp("^[0-9]+$");
       return reg.test(numberString);
    }
 
@@ -121,19 +123,23 @@ class AwesomeSearchModule extends Component {
       //if it contains a character of interest, split the string and test the numbers
       if (value.indexOf(_range) !== -1) {
          _expression = value.split(_range);
-         if (_expression.length === 2 && this._isWholeNumber(_expression[0]) && this._isWholeNumber(_expression[1])) {
+         if (
+            _expression.length === 2 &&
+            this._isWholeNumber(_expression[0]) &&
+            this._isWholeNumber(_expression[1])
+         ) {
             return true;
          }
          return false;
       }
-      if(value.indexOf(_lessThan) !== -1){
+      if (value.indexOf(_lessThan) !== -1) {
          _expression = value.split(_lessThan);
          if (_expression.length === 2 && this._isWholeNumnber(_expression[1])) {
             return true;
          }
          return false;
       }
-      if(value.indexOf(_moreThan) !== -1) {
+      if (value.indexOf(_moreThan) !== -1) {
          _expression = value.split(_moreThan);
          if (_expression.length === 2 && this._isWholeNumber(_expression[1])) {
             return true;
@@ -150,7 +156,10 @@ class AwesomeSearchModule extends Component {
    }
 
    _updateStarInputValue(value) {
-      let _starsError = this._testStars(value) === true || value === "" ? "" : "0..100, 200, >1000";
+      let _starsError =
+         this._testStars(value) === true || value === ""
+            ? ""
+            : "0..100, 200, >1000";
 
       this.setState({
          stars: value,
@@ -188,7 +197,12 @@ class AwesomeSearchModule extends Component {
                idName="starInput"
                inputType="text"
                onChange={this._updateStarInputValue.bind(this)}
-               labelContent={<div className="starsLabel">Stars <span className="starsError">{this.state.starsError}</span></div>}
+               labelContent={
+                  <div className="starsLabel">
+                     Stars{" "}
+                     <span className="starsError">{this.state.starsError}</span>
+                  </div>
+               }
                inputPlaceholder="0..100, 200, >1000"
                disabled={_disabled}
             />
@@ -211,7 +225,9 @@ class AwesomeSearchModule extends Component {
                idName="forkedFlag"
                inputType="checkbox"
                onChange={this._updateForkValue.bind(this)}
-               labelContent={<span className="forkedLabel">Include Forked</span>}
+               labelContent={
+                  <span className="forkedLabel">Include Forked</span>
+               }
                labelPosition="after"
                disabled={_disabled}
             />
@@ -245,11 +261,15 @@ class AwesomeSearchModule extends Component {
       return (
          <div className="AwesomeSearchModule">
             <div className="headerRow">
-               Even Financial GitHub Repository Search
+               Even Financial <span>GitHub Repository Search</span>
             </div>
             <div className="searchRow">{this._renderForm()}</div>
             <div className="submitRow">
-               <button type="button" onClick={this._searchGit.bind(this)} disabled={_disabled}>
+               <button
+                  type="button"
+                  onClick={this._searchGit.bind(this)}
+                  disabled={_disabled}
+               >
                   SEARCH
                </button>
             </div>

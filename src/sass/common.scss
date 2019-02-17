@@ -2,6 +2,106 @@ $blue: #3f87c6;
 $teal: #2b7bc0;
 $gray: #95989a;
 $darkGray: #4b5050;
-$light-grey:#f3f3f3;
+$light-grey: #f3f3f3;
 $white: #fefeff;
 $disabledGray: #a9a9a9;
+
+//put in custom breakpoints here
+$BreakpointSizes: (
+   xxs: (
+      default_value: 361px
+   ),
+   xs: (
+      default_value: 599px
+   ),
+   sm: (
+      default_value: 768px
+   ),
+   md: (
+      default_value: 992px
+   ),
+   lg: (
+      default_value: 1200px
+   )
+);
+
+//get map value by key
+@function getMapValues($map, $key) {
+   @if map-has-key($map, $key) {
+      @return map-get($map, $key);
+   }
+   @warn "Invalid key: `#{$key}`.";
+   @return null;
+}
+
+//respond below point
+@mixin respond-below($size, $module:null) {
+	$breakpoint: getMapValues($BreakpointSizes, $size);
+	$breakpoint-value: null;
+
+	$module: default_value !default;
+
+	@if $breakpoint {
+		$breakpoint-value: getMapValues($breakpoint, $module);
+	}
+	@if $breakpoint-value {
+		@media (max-width: ($breakpoint-value - 1)) {
+			@content;
+		}
+	}
+}
+
+//respond above point
+@mixin respond-above($size, $module:null) {
+	$breakpoint: getMapValues($BreakpointSizes, $size);
+	$breakpoint-value: null;
+
+	$module: default_value !default;
+
+	@if $breakpoint {
+		$breakpoint-value: getMapValues($breakpoint, $module);
+	}
+	@if $breakpoint-value {
+		@media (min-width: ($breakpoint-value)) {
+			@content;
+		}
+	}
+}
+
+//respond between points
+@mixin respond-between($lower, $upper, $lower-module:null, $upper-module:null) {
+	$lower-breakpoint: getMapValues($BreakpointSizes, $lower);
+	$upper-breakpoint: getMapValues($BreakpointSizes, $upper);
+	$lower-breakpoint-value: null;
+	$upper-breakpoint-value: null;
+
+	$lower-module: default_value !default;
+	$upper-module: default_value !default;
+
+	@if $lower-breakpoint {
+		$lower-breakpoint-value: getMapValues($lower-breakpoint, $lower-module);
+	}
+	@if $upper-breakpoint {
+		$upper-breakpoint-value: getMapValues($upper-breakpoint, $upper-module);
+	}
+
+	@if $lower-breakpoint-value and $upper-breakpoint-value {
+		@media (min-width: ($lower-breakpoint-value)) and (max-width: ($upper-breakpoint-value - 1)) {
+			@content;
+		}
+	}
+}
+
+//transform
+@mixin transform($property) {
+	-webkit-tranform: $property;
+	-ms-transform: $property;
+	transform: $property;
+}
+//content-box
+@mixin boxSizing($property) {
+	-ms-box-sizing:$property;
+	-moz-box-sizing:$property;
+	-webkit-box-sizing:$property; 
+	box-sizing:$property;
+}

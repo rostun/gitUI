@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { hot } from "react-hot-loader";
 
 import AwesomeSearchModule from "./AwesomeSearchModule";
-import Bar from "./Bar"
+import Bar from "./Bar";
 
 import "../sass/App.scss";
 
@@ -10,7 +10,7 @@ class App extends Component {
    constructor(props) {
       super(props);
    }
-   
+
    render() {
       return (
          <div className="Container">

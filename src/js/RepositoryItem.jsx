@@ -44,7 +44,6 @@ class RepositoryItem extends Component {
                   {_forked}
                </div>
                <div className="repoDescription">{_repo.description}</div>
-               
             </div>
             <div className="repoStars">
                Stars:

@@ -1,3 +1,5 @@
+@import "common";
+
 html {
    height: 100%;
    //box-sizing: border-box;
@@ -11,4 +13,89 @@ body {
 
 .Container {
    font-family: arial;
+}
+
+//media queries
+@include respond-below(md) {
+   .AwesomeSearchModule {
+      .headerRow {
+         font-size: 28px;
+         padding: 39px 20px 41px 20px;
+         span {
+            display: block;
+         }
+      }
+      .submitRow {
+         .submitRow {
+            padding-top: 21px;
+            padding-bottom: 31px;
+         }
+         .searchForm {
+            width: unset;
+            padding: 0px 20px;
+            .InputModule {
+               flex-basis: 100%;
+               &.searchStars {
+                  padding-top: 18px;
+                  input,
+                  label {
+                     margin-left: 0px;
+                  }
+               }
+               &.searchForked {
+                  padding-top: 20px;
+                  input,
+                  label {
+                     margin-left: 0px;
+                  }
+               }
+               #starInput,
+               #textInput,
+               #selectLicense {
+                  width: unset;
+               }
+            }
+         } //searchForm
+      } //submitRow
+      .divider {
+         flex-basis: 62%;
+      }
+   } //AwesomeSearchModule
+
+   .RepositoryItem {
+      flex-direction: column;
+      .BasicRepoDetails {
+         flex: unset;
+      }
+      .repoStars {
+         border-left: unset;
+         border-right: unset;
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+         text-align: left;
+         flex-direction: row;
+         flex: unset;
+         padding: 22px 0px 22px 8px;
+         .repoStarsValue {
+            padding-top: 0px;
+            padding-left: 10px;
+         }
+      }
+      .repoLicense {
+         text-align: left;
+         flex-direction: row;
+         flex: unset;
+         padding: 22px 0px 22px 8px;
+         .repoLicenseValue {
+            padding-top: 0px;
+            padding-left: 10px;
+         }
+      }
+   }
+}
+
+@include respond-below(xs) {
+   .copyright {
+      font-size: 10px;
+   }
 }

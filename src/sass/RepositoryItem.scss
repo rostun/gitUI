@@ -1,67 +1,62 @@
 @import "common";
 
 .RepositoryItem {
-	display: flex;
-	flex-basis: 100%;
-	flex-direction:row;
-	border: 1px solid black;
-	margin-bottom: 14px;
-	font-size: 14px;
-	.repoBasicDetails {
-		flex: 7;
-		flex-direction:row;
-		padding-top: 21px;
-		padding-left: 23px;
-		padding-bottom: 24px;
-		.repoDetails {
-			display:flex;
-			.repoLink {
-				text-decoration: none;
-				color: $teal;
-				font-weight: bold;
-				font-size: 16px;
-				flex: 12;
-			}
-			.repoForked {
-				flex: 1;
-				text-align: center;
-				margin-right:16px;
-				background-color:$teal;
-				padding: 5px;
-				color:$white;
-				font-size:17px;
-				margin-top:-5px;
-			}
-		}
-		.repoDescription {
-			padding-top:22px;
-		}
-
-
-	}
-	.repoStars {
-		border-left: 1px solid black;
-		border-right: 1px solid black;
-		display:flex;
-		flex-direction:column;
-		flex: 1;
-		text-align:center;
-		padding-top: 25px;
-		.repoStarsValue {
-			padding-top:14px;
-			font-weight: bold;
-		}
-	}
-	.repoLicense {
-		display:flex;
-		flex-direction:column;
-		flex: 1;
-		text-align:center;
-		padding-top:25px;
-		.repoLicenseValue {
-			padding-top:14px;
-			font-weight: bold;
-		}
-	}
-
-}
+   display: flex;
+   flex-basis: 100%;
+   flex-direction: row;
+   border: 1px solid black;
+   margin-bottom: 14px;
+   font-size: 14px;
+   .repoBasicDetails {
+      flex: 7;
+      flex-direction: row;
+      padding: 21px 0px 24px 23px;
+      .repoDetails {
+         display: flex;
+         .repoLink {
+            text-decoration: none;
+            color: $teal;
+            font-weight: bold;
+            font-size: 16px;
+            flex: 12;
+         }
+         .repoForked {
+            flex: 1;
+            text-align: center;
+            margin-right: 16px;
+            background-color: $teal;
+            padding: 5px;
+            color: $white;
+            font-size: 17px;
+            margin-top: -5px;
+         }
+      }
+      .repoDescription {
+         padding-top: 22px;
+      }
+   } //repoBasicDetails
+   .repoStars {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: center;
+      padding-top: 25px;
+      .repoStarsValue {
+         padding-top: 14px;
+         font-weight: bold;
+      }
+   }
+   .repoLicense {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: center;
+      padding-top: 25px;
+      .repoLicenseValue {
+         padding-top: 14px;
+         font-weight: bold;
+      }
+   }
+} //RepositoryItem
