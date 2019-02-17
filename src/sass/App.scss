@@ -20,52 +20,54 @@ body {
    .AwesomeSearchModule {
       .headerRow {
          font-size: 28px;
-         padding: 39px 20px 41px 20px;
+         padding: 39px 0px 41px 0px;
          span {
             display: block;
          }
       }
       .submitRow {
-         .submitRow {
-            padding-top: 21px;
-            padding-bottom: 31px;
-         }
-         .searchForm {
-            width: unset;
-            padding: 0px 20px;
-            .InputModule {
-               flex-basis: 100%;
-               &.searchStars {
-                  padding-top: 18px;
-                  input,
-                  label {
-                     margin-left: 0px;
-                  }
-               }
-               &.searchForked {
-                  padding-top: 20px;
-                  input,
-                  label {
-                     margin-left: 0px;
-                  }
-               }
-               #starInput,
-               #textInput,
-               #selectLicense {
-                  width: unset;
-               }
-            }
-         } //searchForm
-      } //submitRow
+         padding-top: 21px;
+         padding-bottom: 31px;
+      }
+      .resultsRow .results {
+         flex-basis: 95%;
+      }
       .divider {
          flex-basis: 62%;
       }
-   } //AwesomeSearchModule
+      .searchRow .searchForm {
+         width: unset;
+         padding: 0px 20px;
 
+         .InputModule {
+            flex-basis: 100%;
+            &.searchStars {
+               padding-top: 18px;
+               input,
+               label {
+                  margin-left: 0px;
+               }
+            }
+            &.searchForked {
+               padding-top: 20px;
+               input,
+               label {
+                  margin-left: 0px;
+               }
+            }
+            #starInput,
+            #textInput,
+            #selectLicense {
+               width: unset;
+            }
+         } //InputModule
+      } //searchRow. searchForm
+   } //AweomseSearchRow
    .RepositoryItem {
       flex-direction: column;
-      .BasicRepoDetails {
+      .repoBasicDetails {
          flex: unset;
+         padding: 21px 10px 24px 10px;
       }
       .repoStars {
          border-left: unset;
@@ -80,7 +82,7 @@ body {
             padding-top: 0px;
             padding-left: 10px;
          }
-      }
+      } //repoStars
       .repoLicense {
          text-align: left;
          flex-direction: row;
@@ -91,7 +93,7 @@ body {
             padding-left: 10px;
          }
       }
-   }
+   } //RepositoryItem
 }
 
 @include respond-below(xs) {
