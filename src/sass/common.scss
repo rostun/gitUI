@@ -105,3 +105,10 @@ $BreakpointSizes: (
 	-webkit-box-sizing:$property; 
 	box-sizing:$property;
 }
+
+//appearence
+@mixin appearance($property) {
+	-moz-appearance: $property; 
+	-webkit-appearance: $property; 
+	appearance: $property;
+}
