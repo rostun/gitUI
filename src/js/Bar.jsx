@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import "../sass/Bar.scss";
-import logo from "../images/logo.png";
+import logo from "../images/generic-logo.png";
 
 class Bar extends Component {
    constructor(props) {
@@ -15,13 +15,13 @@ class Bar extends Component {
       if (type === "top") {
          return (
             <div className="logo">
-               <img src={logo} alt="even-logo" />
+               <img src={logo} alt="some-logo" />
             </div>
          );
       }
       return (
          <div className="copyright">
-            {"© 2017 Even Financial, Inc. - CONFIDENTIAL"}
+            {"© something something"}
          </div>
       );
    }

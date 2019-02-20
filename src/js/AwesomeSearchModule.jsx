@@ -261,7 +261,7 @@ class AwesomeSearchModule extends Component {
       return (
          <div className="AwesomeSearchModule">
             <div className="headerRow">
-               Even Financial <span>GitHub Repository Search</span>
+               Rosa's <span>GitHub Repository Search</span>
             </div>
             <div className="searchRow">{this._renderForm()}</div>
             <div className="submitRow">
